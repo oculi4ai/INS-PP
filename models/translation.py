@@ -1,0 +1,101 @@
+
+def setTextMW_UI(mw_ui,lang):
+        item = mw_ui.all_orders.verticalHeaderItem(0)
+        item.setText(lang["Monthes"])
+        mw_ui.label_26.setText(lang["Raw Materials"])
+        mw_ui.label_28.setText(lang["Packing materials"])
+        mw_ui.label_2.setText(lang["Active Orders"])
+        mw_ui.label_25.setText(lang["Products"])
+        mw_ui.tabWidget.setTabText(mw_ui.tabWidget.indexOf(mw_ui.tab), lang["HOME"])
+        mw_ui.label.setText(f"<html><head/><body><p align=\"center\">{lang['Final Products']}</p></body></html>")
+        mw_ui.label_6.setText(f"<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">{lang['Measuring Units']}</span></p></body></html>")
+        mw_ui.label_18.setText(f"<html><head/><body><p align=\"center\">{lang['Raw Materials']}</p></body></html>")
+        mw_ui.label_10.setText(f"<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">{lang['Product Raw Materials']}</span></p></body></html>")
+        mw_ui.label_14.setText(f"<html><head/><body><p align=\"center\">{lang['Orders']}</p></body></html>")
+        mw_ui.tabWidget.setTabText(mw_ui.tabWidget.indexOf(mw_ui.tab_2), lang["Products"])
+        mw_ui.menuFile.setTitle(lang["File"])
+        mw_ui.menuExport.setTitle(lang["Export"])
+        mw_ui.menuImport.setTitle(lang["Import"])
+        mw_ui.menuView.setTitle(lang["View"])
+        mw_ui.menuThemes.setTitle(lang["Themes"])
+        mw_ui.export_excell_button.setText(lang["Excell"])
+        mw_ui.actionWord.setText(lang["Word"])
+        mw_ui.import_excell.setText(lang["Excell"])
+        mw_ui.actionINS_Order_Document.setText(lang["INS Production Plan Document"])
+        mw_ui.actionAbout.setText(lang["About"])
+        mw_ui.import_backup.setText(lang["Backup"])
+        mw_ui.actionBackup.setText(lang["Backup settings"])
+        mw_ui.actionINS.setText(lang["INS"])
+        mw_ui.actionWhite.setText(lang["White"])
+        mw_ui.actionDarkGreen.setText(lang["Dark Green"])
+        mw_ui.actionDarkBlue.setText(lang["Dark Blue"])
+        mw_ui.menuLanguages.setTitle(lang["Language"])
+
+def retranslateAddOrder(window, lang):
+        window.label_15.setText(lang['Order Name'])
+        window.label_16.setText(lang['Quantity'])
+        window.label_21.setText(lang['From'])
+        window.label_20.setText(lang['To'])
+
+def retranslatePackingMaterial(window, lang):
+        window.label_5.setText(lang["Material Name"]+' : ')
+        window.label_19.setText(lang["Available Quantity"]+' : ')
+        window.label_4.setText(lang["Code"]+' : ')
+
+def retranslateRawMaterial(window, lang):
+        window.label_5.setText(lang["Material Name"]+' : ')
+        window.label_24.setText(lang["Material density"]+' : ')
+        window.label_17.setText(lang["Matiral Types"]+' : ')
+        window.label_4.setText(lang["Code"]+' : ')
+        window.label_19.setText(lang["Available Quantity"]+' : ')
+
+def retranslateProduct(window, lang):
+        window.label_2.setText(lang["Product Name"]+' : ')
+        window.label_8.setText(lang["Matiral Types"]+' : ')
+        window.label_3.setText(lang["Code"]+' : ')
+
+def retranslateUnit(window, lang):
+        window.label_9.setText(lang["Unit Name"]+' : ')
+        window.label_7.setText(lang["Value"]+' : ')
+
+
+def retranslateBackupSettingsWindow(window, lang):
+        window.manual_backup.setText(lang["Manual backup"])
+        window.view_files.setText("...")
+        window.auto_backup.setText(lang["Auto backup"])
+        window.label.setText(lang["Year"])
+        window.label_2.setText(lang["Month"])
+        window.label_3.setText(lang["Day"])
+        window.label_4.setText(lang["Hour"])
+        window.label_5.setText(lang["Backup every"]+' : ')
+        window.view_folders.setText("...")
+        window.cancel.setText(lang["Cancel"])
+        window.ok.setText(lang["Apply"])
+        window.backup.setText(lang["Create Backup"])
+
+def retranslateExportExcel(window, lang):
+        window.rm_material_type.setText(lang["Matiral Types"])
+        window.rm_code.setText(lang["Code"])
+        window.rm_density.setText(lang["Material density"])
+        window.rm_available_quantity.setText(lang["Available Quantity"])
+        window.rm_name.setText(lang["Export Excel"])
+        window.product_material_type.setText(lang["Matiral Types"])
+        window.product_name.setText(lang["Material Name"])
+        window.product_code.setText(lang["Code"])
+        window.cancel.setText(lang["Cancel"])
+        window.products.setText(lang["Products"])
+        window.export_button.setText(lang["Export"])
+        window.raw_materials.setText(lang["Raw Materials"])
+
+def retranslateUi(self, ImportBackup):
+        self.cancel.setText("Cancel")
+        self.orders_count.setText("0")
+        self.view_data.setText("View")
+        self.import_b.setText("Apply")
+        self.packing_materials_count.setText("0")
+        self.raw_materials_count.setText("0")
+        self.products_count.setText("0")
+        self.label.setText("products count :")
+        self.label_2.setText("Raw materials count :")
+        self.label_3.setText("packing matrials count :")
+        self.label_4.setText("orders count :")
