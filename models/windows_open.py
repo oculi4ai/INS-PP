@@ -45,9 +45,7 @@ def open_add_product_window(mw_ui):
 		for i in types:
 			if i[1]==current_type[1] and i!=current_type :
 				types.remove(i)
-				pass
 	for m_type in types:
-		pass
 		mw_ui.open_add_product_ui.matiral_type.addItem(m_type[1],m_type[0])
 
 
@@ -492,9 +490,7 @@ def open_export_excell(mw_ui):
 
 
 	def export_excell( e_e_UI):
-		options = QFileDialog.Options()
-		options |= QFileDialog.DontUseNativeDialog
-		file_name, _ = QFileDialog.getSaveFileName(mw_ui,"Export excel","","Excel Files (*.xsl);;All Files (*)", options=options)
+		file_name = QFileDialog.getSaveFileName(mw_ui,"Export excel","","Excel Files (*.xlsx);;All Files (*)")
 
 		con=sq.connect(mw_ui.main_data_base)
 		e_e_UI.export_progress.setValue(0)
@@ -502,26 +498,6 @@ def open_export_excell(mw_ui):
 		# product export
 		data=[[]]
 		columns=[]
-
-		def add_column(col_chrack , col_name , db_col_name ,items ,table=e_e_UI.selected_section):
-			if col_chrack.checkState():
-				data[0].append(col_name)
-				if len(items)>1:
-					condition=f' id in {str(items)}'
-					print(condition)
-				elif len(items)==1:
-					condition=f' id={items[0]}'
-				else:
-					condition=f' id ="f"'
-
-
-
-				db_items=con.execute(f'select {db_col_name} from {table} where {condition} ').fetchall()
-				for i in range(len(db_items)):
-					if len(data)-1<len(db_items):
-						data.append([db_items[i][0],])
-					else:
-						data[i+1].append(db_items[i][0])
 
 
 
@@ -533,13 +509,40 @@ def open_export_excell(mw_ui):
 					items+=(e_e_UI.selected_section_list.item(i).data(4),)
 
 
-			add_column(e_e_UI.product_name , 'product name' , 'name' ,items)
-			e_e_UI.export_progress.setValue(9)
-			add_column(e_e_UI.product_code , 'code' , 'code' ,items)
-			e_e_UI.export_progress.setValue(14)
-			add_column(e_e_UI.product_material_type , 'material type' , 'material_type' ,items)
-			e_e_UI.export_progress.setValue(20)
+			def get_data(items):
+				data = []
+				con = sq.connect(mw_ui.main_data_base)
+				for row in items:
+					bit = []
 
+					if e_e_UI.product_name.checkState():
+						name = con.execute(f"select name from products where id = {row}").fetchall()[0][0]
+						bit.append(name)
+
+					if e_e_UI.product_code.checkState():
+						code = con.execute(f"select code from products where id = {row}").fetchall()[0][0]
+						bit.append(code)
+
+					if e_e_UI.product_material_type.checkState():
+						material_types = con.execute(f"select material_type from products where id = {row}").fetchall()[0][0]
+						bit.append(material_types)
+
+					if e_e_UI.product_orders.checkState():
+						orders_count = con.execute(f"select count(*) from orders where product_id = '{row}' ").fetchall()[0][0]
+						for i in range(orders_count):
+							text = con.execute(f"select name from orders where product_id = '{row}' ").fetchall()[0][0]
+							if e_e_UI.orders_date.checkState():
+							  text +=('\n From: '+ ' To:'.join( con.execute(f"select date_from,date_to from orders where product_id = '{row}' ").fetchall()[0]))
+
+							if e_e_UI.orders_quantity.checkState():
+							  text +=('\n Quantity: '+con.execute(f"select quantity from orders where product_id = '{row}' ").fetchall()[0][0])
+
+							  unit_id = con.execute(f"select unit_id from orders where product_id = '{row}' ").fetchall()[0][0]
+							  text += (con.execute(f"select name from units where id = {unit_id} ").fetchall()[0][0])
+							bit.append(text)
+					data.append(bit)
+				return data
+			data=get_data(items)
 
 
 
@@ -562,40 +565,89 @@ def open_export_excell(mw_ui):
 
 
 			def ex_rm():
-				add_column(e_e_UI.rm_name , 'raw material name' , 'name' , rm_items )
-				add_column(e_e_UI.rm_code , 'code' , 'code' ,rm_items)
-				add_column(e_e_UI.rm_material_type , 'type' , 'type' ,rm_items)
-				add_column(e_e_UI.rm_available_quantity , 'available quantity' , 'quantity' ,rm_items)
-				add_column(e_e_UI.rm_density , 'density' , 'density' ,rm_items)
+				data = []
+				con = sq.connect(mw_ui.main_data_base)
+
+				items=()
+				for i in range(e_e_UI.selected_section_list.count()):
+					if(e_e_UI.selected_section_list.item(i).checkState()) and e_e_UI.selected_section_list.item(i).data(5)=='rm':
+						items+=(e_e_UI.selected_section_list.item(i).data(4),)
+
+				for row in items:
+					bit = []
+
+					if e_e_UI.rm_name.checkState():
+						name = con.execute(f"select name from raw_materials where id = {row}").fetchall()[0][0]
+						bit.append(name)
+					if e_e_UI.rm_code.checkState():
+						code = con.execute(f"select code from raw_materials where id = {row}").fetchall()[0][0]
+						bit.append(code)
+					if e_e_UI.rm_material_type.checkState():
+						material_type = con.execute(f"select type from raw_materials where id = {row}").fetchall()[0][0]
+						bit.append(material_type)
+					if e_e_UI.rm_available_quantity.checkState():
+						quantity = con.execute(f"select quantity from raw_materials where id = {row}").fetchall()[0][0]
+						bit.append(quantity)
+					if e_e_UI.rm_density.checkState():
+						density = con.execute(f"select density from raw_materials where id = {row}").fetchall()[0][0]
+						bit.append(density)
+
+
+					data.append(bit)
+				return data
+
 
 			def ex_pm():
-				add_column(e_e_UI.rm_name , 'packing material name' , 'name' , pm_items , table='packing_materials')
-				add_column(e_e_UI.rm_code , 'code' , 'code' ,pm_items , table='packing_materials')
-				add_column(e_e_UI.rm_available_quantity , 'available quantity' , 'quantity' ,pm_items , table='packing_materials')
+				data = []
+				con = sq.connect(mw_ui.main_data_base)
+
+				items=()
+				for i in range(e_e_UI.selected_section_list.count()):
+					if(e_e_UI.selected_section_list.item(i).checkState()) and e_e_UI.selected_section_list.item(i).data(5)=='pm':
+						items+=(e_e_UI.selected_section_list.item(i).data(4),)
+
+				for row in items:
+					bit = []
+
+					if e_e_UI.rm_name.checkState():
+						name = con.execute(f"select name from packing_materials where id = {row}").fetchall()[0][0]
+						bit.append(name)
+					if e_e_UI.rm_code.checkState():
+						code = con.execute(f"select code from packing_materials where id = {row}").fetchall()[0][0]
+						bit.append(code)
+					if e_e_UI.rm_available_quantity.checkState():
+						quantity = con.execute(f"select quantity from packing_materials where id = {row}").fetchall()[0][0]
+						bit.append(quantity)
+
+
+					data.append(bit)
+				return data
 
 			if len(rm_items)>len(pm_items):
-				ex_rm()
+				data=ex_rm()
 				e_e_UI.export_progress.setValue(10)
-				ex_pm()
+				data+=ex_pm()
 				e_e_UI.export_progress.setValue(20)
 
 
 			else:
-				ex_pm()
-				e_e_UI.export_progress.setValue(10)
+				#ex_pm()
+				#e_e_UI.export_progress.setValue(10)
 				ex_rm()
 				e_e_UI.export_progress.setValue(20)
 
 
 
+		table_width=0
+		for i in data :
+			if len(i)>table_width:
+				table_width=len(i)
 
-		serial_letter=(get_serial_letter(len(data[0])))
-
-
+		serial_letter=(get_serial_letter(table_width))
 		workbook = Workbook()
 		sheet = workbook.active
 
-		t=80/len(data)
+		t=80/len(data)# for progress
 		v=20
 		for raw in range(len(data)):
 			v+=t
@@ -605,10 +657,8 @@ def open_export_excell(mw_ui):
 				sheet[f'{serial_letter[cell]}{raw+1}'] =  data[raw][cell]
 
 
-		try:
-			workbook.save(filename=file_name)
-		except:
-			pass
+		workbook.save(filename=file_name[0]+'.xlsx')
+
 
 
 		e_e_UI.export_progress.setValue(100)

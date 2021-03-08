@@ -29,9 +29,8 @@ from models.messages import *
 
 def init(mw_ui,mw):# mw_ui = (main window UI)
 
-
-
 	mw_ui.orders_table_year.setDate( datetime.date.today() )
+
 	check_main_db(mw_ui )
 	view_data(mw_ui)
 	connections(mw_ui,mw)
@@ -86,7 +85,9 @@ def connections(mw_ui,mw):
 		con.execute(f'update style set name="{style}"')
 		con.commit()
 		mw_ui.current_style=styles[style]+main_style
-		mw.setStyleSheet(mw_ui.current_style)
+		mw_ui.setStyleSheef(mw_ui.current_style)
+
+	con=sq.connect(mw_ui.main_data_base)
 
 
 
@@ -103,7 +104,7 @@ def connections(mw_ui,mw):
 	mw_ui.add_pm.clicked.connect(lambda: open_add_pm_window(mw_ui))
 	mw_ui.p_rm_list.clicked.connect(lambda:open_edit_p_rm_window(mw_ui))
 	mw_ui.units_list.clicked.connect(lambda:open_edit_unit_window(mw_ui))
-	mw_ui.add_product.clicked.connect(lambda:open_add_product_window(mw_ui))
+	mw_ui.add_product.clicked.connect( lambda:open_add_product_window(mw_ui) )
 	mw_ui.orders_list.clicked.connect(lambda: open_edit_order_window(mw_ui))
 	mw_ui.orders_table_year.dateChanged.connect(lambda: view_all_orders(mw_ui))
 	mw_ui.actionBackup.triggered.connect(lambda: open_backup_settings(mw_ui))
@@ -117,7 +118,7 @@ def connections(mw_ui,mw):
 	mw_ui.edit_product.clicked.connect(lambda:open_edit_product_window(mw_ui) if mw_ui.products_list.currentRow() >= 0 else QtWidgets.QMessageBox.critical(mw_ui, mw_ui.current_msg_language['NoSelectedProduct'] , mw_ui.current_msg_language['SelectProduct2Edit'] , QtWidgets.QMessageBox.Ok))
 
 def home_page_info(mw_ui,rm,pm,p,o):
-		con=sq.connect(mw_ui.main_data_base)
+
 		#get raw materials count
 		con=sq.connect(mw_ui.main_data_base)
 		rm_count=con.execute('select count(*) from raw_materials').fetchall()[0][0]
@@ -520,7 +521,6 @@ def view_product_order(mw_ui):
 ############################   add functions >
 
 def add_product(mw_ui):
-	mw_ui.add_product_window.close()
 	con=sq.connect(mw_ui.main_data_base)
 	ch=con.execute(f'select name from products where name=?',(mw_ui.open_add_product_ui.product_name.text(),)).fetchall()
 	ch_2=con.execute(f'select code from products where code=?',(mw_ui.open_add_product_ui.product_code.text(),)).fetchall()
@@ -544,6 +544,7 @@ def add_product(mw_ui):
 
 
 	if m==QtWidgets.QMessageBox.Yes:
+		mw_ui.add_product_window.close()
 		con.execute("INSERT into products (name,'code','material_type') values (?,?,?)" ,(mw_ui.open_add_product_ui.product_name.text() , mw_ui.open_add_product_ui.product_code.text() ,mw_ui.open_add_product_ui.matiral_type.currentText() ))
 		con.commit()
 		product_id=con.execute('select id from products').fetchall()[-1][0]

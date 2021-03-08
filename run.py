@@ -10,51 +10,61 @@ from models.styles import styles
 app = QtWidgets.QApplication(sys.argv)
 
 
-MainWindow = QtWidgets.QMainWindow()
-ui2 =uic.loadUi('windows/main_window.ui', MainWindow)
-ui2.main_data_base='main.db'
 
-functions.init(ui2 ,MainWindow)
+def open_main_window():
+	MainWindow = QtWidgets.QMainWindow()
+	ui2 =uic.loadUi('windows/main_window.ui', MainWindow)
+	ui2.main_data_base='main.db'
 
-MainWindow.showMaximized()
-MainWindow.show()
+	functions.init(ui2 ,MainWindow)
 
-#ui2.setStyleSheet('')
+	MainWindow.showMaximized()
+	MainWindow.show()
 
-ui2.backup_tables={
-				'products' 				:'name,code,material_type',
-				'raw_materials'			:'name,type,code,quantity,unit,density',
-				'packing_materials'		:'name,code,quantity,unit',
-				'product_raw_materials'	:'product_id,material_id,t_quantity,t_unit,m_quantity,m_unit, percentage',
-				'orders'				:'name,product_id,quantity,unit_id,done,date_from,date_to',
-				'backup_settings'		:'backup_type,backup_year_time , backup_month_time , backup_day_time , backup_hour_time ,location',
-				'units'					:'name,product_id,value,unit_id,is_standard ',
-				'material_types'		:'type,units_ids',
-				'backups'				:'date,location'}
+	#ui2.setStyleSheet('')
 
-
-
-ui2.open=True
-
-def exit_app():
-	ui2.open=False
+	ui2.backup_tables={
+					'products' 				:'name,code,material_type',
+					'raw_materials'			:'name,type,code,quantity,unit,density',
+					'packing_materials'		:'name,code,quantity,unit',
+					'product_raw_materials'	:'product_id,material_id,t_quantity,t_unit,m_quantity,m_unit, percentage',
+					'orders'				:'name,product_id,quantity,unit_id,done,date_from,date_to',
+					'backup_settings'		:'backup_type,backup_year_time , backup_month_time , backup_day_time , backup_hour_time ,location',
+					'units'					:'name,product_id,value,unit_id,is_standard ',
+					'material_types'		:'type,units_ids',
+					'backups'				:'date,location'}
 
 
 
-def closeEvent(self, event):
-            close = QtWidgets.QMessageBox.question(self,
-                                         "QUIT",
-                                         "Are you sure want to QUIT?",
-                                         QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-            if close == QtWidgets.QMessageBox.Yes:
-                event.accept()
-                for window in app.allWindows():
+	ui2.open=True
 
-                    window.close()
-            else:
-                event.ignore()
+	def exit_app():
+		ui2.open=False
 
-MainWindow.closeEvent = MethodType(closeEvent,MainWindow)
 
-app.aboutToQuit.connect(exit_app)
+
+	def closeEvent(self, event):
+	            close = QtWidgets.QMessageBox.question(self,
+	                                         "QUIT",
+	                                         "Are you sure want to QUIT?",
+	                                         QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+	            if close == QtWidgets.QMessageBox.Yes:
+	                event.accept()
+	                for window in app.allWindows():
+
+	                    window.close()
+	            else:
+	                event.ignore()
+
+	MainWindow.closeEvent = MethodType(closeEvent,MainWindow)
+
+	app.aboutToQuit.connect(exit_app)
+
+
+loading_win = QtWidgets.QWidget()
+l_ui =uic.loadUi('windows/loading_program.ui', loading_win)
+loading_win.setWindowModality(QtCore.Qt.ApplicationModal)
+loading_win.show()
 sys.exit(app.exec_())
+
+open_main_window()

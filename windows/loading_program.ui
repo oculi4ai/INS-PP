@@ -1,164 +1,32 @@
-
-################## green black
-#18191d
-#3d444b
-#3fc1b0
-#282e33
-
-################## blue black
-#0e1621
-#242f3d
-#5288c1
-#17212b
-
-################## white
-
-#74b4e0
-#f1f1f1
-#419fd9
-#ffffff
-
-
-
-
-
-
-###########################################################
-
-##################blue black
-#0e1621
-#242f3d
-#5288c1
-#17212b
-dark_blue_style='''
-/* ############ color 1 ############# */
-QListWidget,#frame_29,#frame_49,#frame_40, QWidget,QTabBar::tab{
-background-color: #0e1621 ;
-}
-
-/* ############ color 2 ############# */
-
-#menuBar,#frame_2 ,
-QTabBar::tab:selected, QTabBar::tab:hover ,QHeaderView {
-	background-color: #242f3d;
-}
-#frame,#units_frame,#rm_frame,#frame_4{
-
-background-color:#17212b;
-
-}
-#add_rm,#add_pm{
-border-color:#17212b;
-
-}
-/* ############ color 3 ############# */
-QToolButton:pressed,QPushButton:pressed,QToolTip {
-background-color: #2b5278;
-
-}
-
-/* ############ color 4 ############# */
-
-QLineEdit , QPushButton , QToolButton , QListWidget , QListWidget::item ,QListWidget::item:selected , QPushButton , QSpinBox ,  QComboBox  , QDateEdit
-,#frame_7 ,#frame_9,QTextEdit,QProgressBar,QTableView,QToolTip
-{border: 2px solid #242f3d;
-}
-QTableWidget{
-	gridline-color: 2px solid #242f3d;
-
-}
-QTableView::item:selected,
-QScrollBar:handle,QListWidget:item:hover,#products_list::item:selected
-{
-background-color: #5288c1 ;
-
-}
-
-/* ############ font color  ############# */
-
-QWidget,QListWidget::item:selected{
-color:rgb(200,200,200);
-
-}
-
-QToolButton,QPushButton,QListWidget:item{
-	background-color:qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(89, 89, 89, 0));
-}
-'''
-
-##########green black
-#18191d background
-#3d444b	navbar fonr
-#3fc1b0 titles selected item check box
-#282e33 unselected item
-dark_green_style='''
-/* ############ color 1 ############# */
-QListWidget,#frame_29,#frame_49,#frame_40, QWidget,QTabBar::tab{
-background-color: #18191d ;
-}
-
-/* ############ color 2 ############# */
-
-#menuBar,#frame_2 ,
-QTabBar::tab:selected, QTabBar::tab:hover ,QHeaderView {
-	background-color: #3d444b;
-}
-#frame,#units_frame,#rm_frame,#frame_4{
-
-background-color:#282e33;
-
-}
-#add_rm,#add_pm{
-border-color:#17212b;
-
-}
-/* ############ color 3 ############# */
-QToolButton:pressed,QPushButton:pressed,QToolTip {
-background-color: #2b5278;
-
-}
-
-/* ############ color 4 ############# */
-
-QLineEdit , QPushButton , QToolButton , QListWidget , QListWidget::item ,QListWidget::item:selected, QPushButton , QSpinBox ,  QComboBox  , QDateEdit
-,#frame_7 ,#frame_9,QTextEdit,QProgressBar,QTableView,QToolTip
-{border: 2px solid #3d444b;
-}
-QTableWidget{
-	gridline-color: 2px solid #3d444b;
-
-}
-QTableView::item:selected,
-QScrollBar:handle,QListWidget:item:hover,#products_list::item:selected
-{
-background-color: #3fc1b0 ;
-
-}
-
-/* ############ font color  ############# */
-
-QWidget,QListWidget::item:selected{
-color:rgb(200,200,200);
-
-}
-
-QToolButton,QPushButton,QListWidget:item{
-	background-color:qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(89, 89, 89, 0));
-}
-'''
-
-
-
-
-#################### white
-
-#206087 background
-#f1f1f1 navbar fonr
-#419fd9 selected titles selected item check box
-#ffffff unselected items
-
-
-white_style='''
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>login_2</class>
+ <widget class="QWidget" name="login_2">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>620</width>
+    <height>360</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>620</width>
+    <height>360</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>620</width>
+    <height>360</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>INS login</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
 
 /* ############ color 1 ############# */
 QListWidget,#frame_29,#frame_49,#frame_40, QWidget,QTabBar::tab{
@@ -203,7 +71,9 @@ background-color: #419fd9 ;
 QWidget,QListWidget::item:selected{
 color:rgb(10,10,10);
 
+
 }
+#Form{background-image: url(icons/photo_2021-03-03_20-05-21.jpg);}
 
 QToolButton,QPushButton{
 	background-color:qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(50, 50, 50, 0.5));
@@ -211,11 +81,11 @@ QToolButton,QPushButton{
 #label,#label_6,#label_18,#label_10,#label_14{
 color:rgb(255,255,255);
 }
-'''
 
 
 
-main_style='''
+
+
 /* ############ main tap widget ############# */
 #frame,#frame_2,#frame,#units_frame,#rm_frame,#frame_4{
 border-radius: 10px;}
@@ -403,12 +273,78 @@ QListView {
     outline: 0;
 }
 
-
-'''
-
-
-styles={
-	'Dark green':dark_green_style,
-	'Dark blue':dark_blue_style,
-	'White':white_style
-}
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>130</number>
+   </property>
+   <property name="topMargin">
+    <number>209</number>
+   </property>
+   <property name="rightMargin">
+    <number>130</number>
+   </property>
+   <property name="bottomMargin">
+    <number>47</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QLineEdit" name="path">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>25</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QProgressBar" name="progressBar">
+     <property name="styleSheet">
+      <string notr="true">border-width:0px;</string>
+     </property>
+     <property name="value">
+      <number>24</number>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QToolButton" name="select_database">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QPushButton" name="login">
+     <property name="text">
+      <string>login</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
